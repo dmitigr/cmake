@@ -7,6 +7,9 @@ cmake_minimum_required(VERSION 3.16)
 set(SQLITE3_SHELL On CACHE BOOL
   "Build SQLite shell?")
 
+set(SQLITE3_INSTALL On CACHE BOOL
+  "Install SQLite?")
+
 set(sqlite3_headers sqlite3.h sqlite3ext.h)
 
 add_library(sqlite3 STATIC ${sqlite3_headers} sqlite3.c)
@@ -25,9 +28,11 @@ if(SQLITE3_SHELL)
   list(APPEND targets sqlite3shell)
 endif()
 
-install(TARGETS ${targets}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin)
+if(SQLITE3_INSTALL)
+  install(TARGETS ${targets}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin)
 
-install(FILES ${sqlite3_headers} DESTINATION include)
+  install(FILES ${sqlite3_headers} DESTINATION include)
+endif()
