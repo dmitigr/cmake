@@ -4,7 +4,7 @@
 project(sqlite3)
 cmake_minimum_required(VERSION 3.16)
 
-set(SQLITE_SHELL On CACHE BOOL
+set(SQLITE3_SHELL On CACHE BOOL
   "Build SQLite shell?")
 
 set(sqlite3_headers sqlite3.h sqlite3ext.h)
@@ -19,7 +19,7 @@ target_compile_definitions(sqlite3 PUBLIC
   SQLITE_OMIT_LOAD_EXTENSION)
 list(APPEND targets sqlite3)
 
-if(SQLITE_SHELL)
+if(SQLITE3_SHELL)
   add_executable(sqlite3shell shell.c)
   target_link_libraries(sqlite3shell sqlite3)
   list(APPEND targets sqlite3shell)
