@@ -16,7 +16,11 @@ add_library(sqlite3 STATIC ${sqlite3_headers} sqlite3.c)
 if (UNIX)
   target_link_libraries(sqlite3 pthread)
 endif()
-target_include_directories(sqlite3 PUBLIC include)
+if(SQLITE3_INSTALL)
+  target_include_directories(sqlite3 PUBLIC include)
+else()
+  target_include_directories(sqlite3 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
 target_compile_definitions(sqlite3 PUBLIC
   SQLITE_OMIT_DEPRECATED
   SQLITE_OMIT_LOAD_EXTENSION)
