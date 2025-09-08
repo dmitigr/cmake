@@ -34,11 +34,11 @@
 # @param boost_libs A list of libraries to build (default all the libraries).
 function(dmitigr_boost_build boost_src_root boost_build_root boost_libs)
   if(NOT Boost_ROOT)
-    message(FATAL_ERROR "dmitigr_build_boost(): Boost_ROOT must not be empty")
+    message(FATAL_ERROR "dmitigr_boost_build(): Boost_ROOT must not be empty")
   endif()
 
   if(NOT boost_src_root OR NOT boost_build_root OR NOT boost_libs)
-    message(FATAL_ERROR "dmitigr_build_boost(): invalid arguments")
+    message(FATAL_ERROR "dmitigr_boost_build(): invalid arguments")
   endif()
 
   if(Boost_USE_STATIC_LIBS)
