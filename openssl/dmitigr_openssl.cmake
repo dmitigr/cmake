@@ -42,7 +42,7 @@ function(dmitigr_openssl_build openssl_src_root openssl_build_root
   endif()
 
   set(OPENSSL_USE_STATIC_LIBS True)
-  find_package(OpenSSL)
+  find_package(OpenSSL HINTS "${OPENSSL_ROOT_DIR}" NO_DEFAULT_PATH)
   if(NOT OPENSSL_FOUND)
     execute_process(COMMAND "cmake"
       "-E" "make_directory" "${openssl_build_root}"
@@ -81,7 +81,7 @@ function(dmitigr_openssl_build openssl_src_root openssl_build_root
     if(APPLE)
       # Note, the CMAKE_OSX_SYSROOT is based on the CMAKE_OSX_DEPLOYMENT_TARGET.
       set(orig_cflags $ENV{CFLAGS})
-      set(ENV{CFLAGS} "--sysroot ${CMAKE_OSX_SYSROOT}")
+      set(ENV{CFLAGS} "-L ${openssl_build_root}")
     elseif(WIN32)
       if(OPENSSL_MSVC_STATIC_RT)
         set(orig_cflags $ENV{CFLAGS})
