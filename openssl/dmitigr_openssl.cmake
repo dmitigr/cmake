@@ -14,6 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set(dmitigr_openssl_libdir "lib")
+
+# @brief Attempts to find OpenSSL in `${OPENSSL_ROOT_DIR}`.
+macro(dmitigr_openssl_find)
+  find_package(OpenSSL ${ARGV}
+    PATHS "${OPENSSL_ROOT_DIR}/${dmitigr_openssl_libdir}/cmake" NO_DEFAULT_PATH)
+endmacro()
+
 # @brief Builds OpenSSL libraries and installs them under `${OPENSSL_ROOT_DIR}`.
 #
 # @details The behavior of this function depends on the following variables:
@@ -42,8 +50,7 @@ function(dmitigr_openssl_build openssl_src_root openssl_build_root
   endif()
 
   set(OPENSSL_USE_STATIC_LIBS True)
-  set(libdir "lib")
-  find_package(OpenSSL PATHS "${OPENSSL_ROOT_DIR}/${libdir}/cmake" NO_DEFAULT_PATH)
+  dmitigr_openssl_find(OPTIONAL)
   if(NOT OpenSSL_FOUND)
     execute_process(COMMAND "cmake"
       "-E" "make_directory" "${openssl_build_root}"
@@ -91,7 +98,7 @@ function(dmitigr_openssl_build openssl_src_root openssl_build_root
     endif()
     execute_process(COMMAND ${openssl_configure}
       "--prefix=${OPENSSL_ROOT_DIR}"
-      "--libdir=${libdir}"
+      "--libdir=${dmitigr_openssl_libdir}"
       ${openssl_configure_args}
       WORKING_DIRECTORY "${openssl_build_root}"
       RESULT_VARIABLE status
