@@ -42,8 +42,9 @@ function(dmitigr_openssl_build openssl_src_root openssl_build_root
   endif()
 
   set(OPENSSL_USE_STATIC_LIBS True)
-  find_package(OpenSSL HINTS "${OPENSSL_ROOT_DIR}" NO_DEFAULT_PATH)
-  if(NOT OPENSSL_FOUND)
+  set(libdir "lib")
+  find_package(OpenSSL PATHS "${OPENSSL_ROOT_DIR}/${libdir}/cmake" NO_DEFAULT_PATH)
+  if(NOT OpenSSL_FOUND)
     execute_process(COMMAND "cmake"
       "-E" "make_directory" "${openssl_build_root}"
       RESULT_VARIABLE status
@@ -90,6 +91,7 @@ function(dmitigr_openssl_build openssl_src_root openssl_build_root
     endif()
     execute_process(COMMAND ${openssl_configure}
       "--prefix=${OPENSSL_ROOT_DIR}"
+      "--libdir=${libdir}"
       ${openssl_configure_args}
       WORKING_DIRECTORY "${openssl_build_root}"
       RESULT_VARIABLE status
