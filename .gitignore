@@ -1,0 +1,6 @@
+lib-src
+lib-install
+lib-build
+build
+*.bz2
+*.gz
