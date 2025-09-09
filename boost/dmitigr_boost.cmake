@@ -14,6 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# @brief Attempts to find Boost in `${Boost_ROOT}`.
+macro(dmitigr_boost_find)
+  find_package(Boost ${ARGV}
+    PATHS "${Boost_ROOT}" NO_DEFAULT_PATH)
+endmacro()
+
 # @brief Builds Boost libraries and installs them under `${Boost_ROOT}`.
 #
 # @details The behavior of this function depends on the following variables:
@@ -69,6 +75,7 @@ function(dmitigr_boost_build boost_src_root boost_build_root boost_libs)
     message(FATAL_ERROR "Either Boost_USE_DEBUG_LIBS or Boost_USE_RELEASE_LIBS must be set")
   endif()
 
+  dmitigr_boost_find(OPTIONAL COMPONENTS ${boost_libs})
   find_package(Boost COMPONENTS ${boost_libs}
     PATHS "${Boost_ROOT}" NO_DEFAULT_PATH)
   foreach(lib ${boost_libs})

@@ -12,5 +12,4 @@ dmitigr_boost_build("${CMAKE_CURRENT_SOURCE_DIR}/boost"
   "${CMAKE_CURRENT_SOURCE_DIR}/boost-build"
   "${boost_libs}")
 
-find_package(Boost REQUIRED COMPONENTS ${boost_libs}
-  PATHS "${Boost_ROOT}" NO_DEFAULT_PATH)
+dmitigr_boost_find(REQUIRED COMPONENTS ${boost_libs})
