@@ -76,6 +76,7 @@ function(dmitigr_openssl_build openssl_src_root openssl_build_root
       "no-atexit"
       "no-dso"
       "no-deprecated"
+      "no-http"
       "no-legacy"
       "no-shared"
       "no-pinshared"
