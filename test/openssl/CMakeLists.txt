@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(dmitigr_openssl_test)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../src")
 include(dmitigr_openssl)
 
 set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib-install")
