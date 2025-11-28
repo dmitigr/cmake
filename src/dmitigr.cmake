@@ -66,10 +66,12 @@ function(dmitigr_target_compile_options t)
       -Wsuggest-override
       -Wlogical-op
       -Wswitch)
-  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR
+      CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
     target_compile_options(${t} PRIVATE
       -pedantic
       -Weverything
+      -Wno-format-nonliteral
       -Wno-c++98-compat
       -Wno-c++98-compat-pedantic
       -Wno-documentation-unknown-command
@@ -81,9 +83,17 @@ function(dmitigr_target_compile_options t)
       -Wno-global-constructors
       -Wno-covered-switch-default
       -Wno-switch-enum # but -Wswitch still active!
+      -Wno-switch-default
       -Wno-unused-private-field
-      -Wno-reserved-id-macro
+      -Wno-reserved-id-macro)
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+      target_compile_options(${t} PRIVATE
+        -fsanitize=address
       )
+      target_link_options(${t} PRIVATE
+        -fsanitize=address
+      )
+    endif()
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_compile_options(${t} PRIVATE
       /W4
