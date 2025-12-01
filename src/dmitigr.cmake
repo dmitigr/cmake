@@ -85,6 +85,7 @@ function(dmitigr_target_compile_options t)
       -Wno-switch-enum # but -Wswitch still active!
       -Wno-switch-default
       -Wno-unused-private-field
+      -Wno-deprecated-copy-with-dtor
       -Wno-reserved-id-macro)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
       target_compile_options(${t} PRIVATE
