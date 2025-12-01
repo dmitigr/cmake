@@ -88,10 +88,10 @@ function(dmitigr_target_compile_options t)
       -Wno-deprecated-copy-with-dtor
       -Wno-reserved-id-macro)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-      target_compile_options(${t} PRIVATE
+      target_compile_options(${t} PUBLIC
         -fsanitize=address
       )
-      target_link_options(${t} PRIVATE
+      target_link_options(${t} PUBLIC
         -fsanitize=address
       )
     endif()
