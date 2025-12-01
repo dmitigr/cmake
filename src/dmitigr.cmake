@@ -70,7 +70,7 @@ function(dmitigr_target_compile_options t)
       CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
     target_compile_options(${t} PRIVATE
       -pedantic
-      -Weverything
+      # -Weverything
       -Wno-format-nonliteral
       -Wno-c++98-compat
       -Wno-c++98-compat-pedantic
